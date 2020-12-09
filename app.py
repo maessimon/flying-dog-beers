@@ -17,6 +17,11 @@ label2='ABV'
 githublink='https://github.com/austinlasseter/flying-dog-beers'
 sourceurl='https://www.flyingdog.com/beers/'
 
+db = pyodbc.connect('Driver={SQL Server}; SERVER=SERVER-AGV;DATABASE=Vulkoprin;UID=cerastore;PWD=cerastore')
+df_hist = pd.read_sql("Select * from Production order by [Date] desc", db)
+df_act=pd.read_sql("Select * from VUL_Production where [Date]>GETDATE()-1 order by DateTransaction asc", db)
+print(df_hist)
+
 ########### Set up the chart
 bitterness = go.Bar(
     x=beers,
